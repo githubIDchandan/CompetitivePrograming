@@ -1,0 +1,62 @@
+int n;
+  cin >> n;
+  // range of prime O(N^2) solution.
+  vector<int>v;
+
+  v.push_back(1);
+  for (int i = 2; i <= n; i++) {
+    bool prime = true;
+    for (int j = 2; j < i; j++) {
+      if (i % j == 0) {
+        prime = false;
+      }
+    }
+    if (prime) {
+      v.push_back(i);
+    }
+  }
+  for (int i = 0; i < v.size(); i++) {
+    cout << v[i] << " ";
+  }
+
+  // ---------------- O(N*sqrt(N)) solution ----------------------------
+
+  vector<int>v;
+  v.push_back(1);
+  for (int i = 2; i < n; i++) {
+    int prime = true;
+    for (int j = 2; j * j <= i; j++) {
+      if (i % j == 0) {
+        prime = false;
+      }
+    }
+    if (prime) {
+      v.push_back(i);
+    }
+  }
+  for (int i = 0; i < v.size(); i++) {
+    cout << v[i] << " ";
+  }
+
+// --------------------- O(N*loglog(N)) solution (prime seive)----------
+
+  vector<int>v(n, true);
+  v[0] = true;
+  v[1] = true;
+  for (int i = 2; i <= n; i++) {
+    if (i % 2 == 0) {
+      v[i] = false;
+    }
+  }
+  for (int i = 2; i <= n; i++) {
+    if (v[i] == true) {
+      for (int j = i * i; j < n; j += i) {
+        v[i] = false;
+      }
+    }
+  }
+  for (int i = 0; i <= n; i++) {
+    if (v[i] == true) {
+      cout << i << " ";
+    }
+  }
