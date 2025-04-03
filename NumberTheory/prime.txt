@@ -1,0 +1,20 @@
+ int n;
+  cin >> n;
+  // check number is prime or not in O(N)
+  for (int i = 2; i < n - 2; i++) {
+    if (n % i == 0) {
+      cout << "Not Prime" << endl;
+      return;
+    }
+  }
+  cout << "Prime" << endl;
+  
+  // in O(sqrt(N))
+  for (int i = 2; i * i < n; i++) {
+    if (n % i == 0) {
+      cout << "Not Prime" << endl;
+      return;
+    }
+
+  }
+  cout << "Prime" << endl;
