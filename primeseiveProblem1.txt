@@ -1,0 +1,65 @@
+Problem Statement:-
+PMO gives two random numbers a & b to the Prime Minister. PM Modi wants to visit all countries between a and b (inclusive) , However due to shortage of time he can't visit each and every country , So PM Modi decides to visit only those countries,for which country number has two divisors. So your task is to find number of countries Mr. Modi will visit.
+
+Constraints:-
+a<=1000000 & b<=1000000. 
+N<=1000
+
+optimized Code:
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int>prime(1000005, true);
+void primeSieve() {
+  for (int i = 0; i < prime.size(); i++) {
+    if (i % 2 == 0) {
+      prime[i] = false;
+    }
+  }
+
+  prime[2] = true;
+  for (int i = 2; i < prime.size(); i++) {
+    if (prime[i] == true) {
+      for (int j = i * i; j < prime.size(); j += i) {
+        prime[j] = false;
+      }
+    }
+  }
+}
+
+vector<int>sum(1000005);
+void primeSum() {
+  for (int i = 2; i <= 100000; i++) {
+    sum[i] = sum[i - 1] + prime[i];
+  }
+}
+
+void solve() {
+
+  int a, b;
+  cin >> a >> b;
+  cout << sum[b] - sum[a - 1] << endl;
+
+}
+
+signed main()
+{
+  // IOS;
+#ifndef ONLINE_JUDGE
+  freopen("input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+#endif
+
+  primeSieve();
+  primeSum();
+
+  int t;
+  cin >> t;
+  while (t--) {
+    solve();
+  }
+  return 0;
+}
+
+
+
